@@ -1,4 +1,4 @@
-Conversational-AI-Engine-for-Interactions-in-Video-Games
+Conversational AI Engine for Video Games
 ========================================================
 
 System for dynamic conversations based on characters' personality and emotions.
