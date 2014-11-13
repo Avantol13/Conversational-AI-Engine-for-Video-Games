@@ -1,0 +1,20 @@
+<topic title="Dumb Fruit">
+  <statements>
+    <statement text="You look like a goofy banana.">
+      <delJoy>0.1</delJoy>
+      <delSadness>0.1</delSadness>
+      <delAnger>0.1</delAnger>
+      <delFear>0.1</delFear>
+      <delDisgust>0.1</delDisgust>
+      <delSurprise>0.1</delSurprise>
+      <delAnticipation>0.1</delAnticipation>
+      <delTrust>0.1</delTrust>
+      <minOpennessToExperience>0.1</minOpennessToExperience>
+      <minConscientiousness>0.2</minConscientiousness>
+      <minExtraversion>0.3</minExtraversion>
+      <minAgreeableness>0.4</minAgreeableness>
+      <minNeuroticism>0.4</minNeuroticism>
+      <nextTopic>Fruit</nextTopic>
+    </statement>
+  </statements>
+</topic>
