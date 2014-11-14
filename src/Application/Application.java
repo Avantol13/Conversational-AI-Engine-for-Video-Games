@@ -46,7 +46,6 @@ import java.awt.Font;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowEvent;
 
-// TODO: Auto-generated Javadoc
 /** 
  * TODO improve search functions for searching of topics. Perhaps
  *		sort all the topics by title (quick sort) and then find the 
@@ -60,15 +59,6 @@ import java.awt.event.WindowEvent;
  */
 public class Application 
 {
-	/** The topics that were imported. */
-	//private LinkedList<Topic> topics;
-	
-	/** The current conversation taking place. */
-    //private Conversation originalConversation;
-    
-	/** The current conversation taking place. */
-    //private Conversation conversation;
-	
     /** The data for the application. */
     protected ApplicationData applicationData;
     
@@ -595,7 +585,7 @@ public class Application
     {
         // Show all the information from the conversation.
         initiatorBox.setText(applicationData.getCurrentConversation().getInitiator().getName());
-        responderBox.setText(applicationData.getCurrentConversation().getInitiator().getName());
+        responderBox.setText(applicationData.getCurrentConversation().getResponder().getName());
         try
         {
             topicOfConversationBox.setText(applicationData.getCurrentConversation().getCurrentTopic().getTitle());
@@ -684,7 +674,7 @@ public class Application
     {
         // Show all the information from the conversation.
         initiatorBox.setText(applicationData.getCurrentConversation().getInitiator().getName());
-        responderBox.setText(applicationData.getCurrentConversation().getInitiator().getName());
+        responderBox.setText(applicationData.getCurrentConversation().getResponder().getName());
         
         try
         {
@@ -865,7 +855,7 @@ public class Application
                                     null,
                                     people,
                                     applicationData.getPeople().get(0).getName());
-                            Person responder = searchPerson(stringInitiator, applicationData.getPeople());
+                            Person responder = searchPerson(stringResponder, applicationData.getPeople());
                 
                             applicationData.newConversation(new Conversation(initiator, responder, startingTopic));
                         }

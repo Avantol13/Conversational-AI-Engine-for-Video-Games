@@ -63,6 +63,7 @@ public class Person
 		//Check for correct size of array
 		if (deltaEmotions.length != 8)
 		{
+		    // TODO Show error dialog, don't throw error.
 			throw new NullPointerException("\nError: Number of emotion modifiers incorrect. "
 								+ "No update on...\n"
 								+ this.toString());
@@ -84,21 +85,20 @@ public class Person
 	protected void calculateEmotionModifiers()
 	{
 		// Loop through each of the emotions.
-		for (int index0 = 0; index0 < emotions.length; index0++)
+		for (int index = 0; index < emotions.length; index++)
 		{
-		    // TODO Remove.
-		    // Set to default.
-		    totalEmotionModifiers[index0] = 1;
+		    // Clear current modifier.
+		    totalEmotionModifiers[index] = 0;
 		    
 			// Loop through all of the personality traits to add up their modifiers for emotion
 			for(int index1 = 0; index1 < personalityTraits.length; index1++)
 			{
 				// Add all the personality modifiers to get a single modifier
-				totalEmotionModifiers[index0] += personalityTraits[index1].getEmotionModifiers()[index1]; 
+				totalEmotionModifiers[index] += personalityTraits[index1].getEmotionModifiers()[index]; 
 			}
 			
 			// Average the multipliers together.
-			totalEmotionModifiers[index0] = totalEmotionModifiers[index0]/emotions.length; 
+			totalEmotionModifiers[index] = totalEmotionModifiers[index]/personalityTraits.length; 
 			// TODO Is there a better way to calculate the emotional modifiers? ^^^^^^
 		}
 	}
