@@ -136,19 +136,24 @@ public class Person
 		boolean requirementsMet; // used in loops to check for all requirements
 
 		// for all the possible statements
-		for (int index = 0; index < statementPool.size(); index++) {
+		for (int index = 0; index < statementPool.size(); index++) 
+		{
 			requirementsMet = true; // assume innocent until proven guilty
 			
-			// check for the min requirements of all personality traits
-			for (int traits = 0; traits < numTraits; traits++) {
-							
+			// check for the min and max requirements of all personality traits
+			for (int traits = 0; traits < numTraits; traits++) 
+			{	
 				// check that EVERY personality trait meets the minimum
 				// requirement for the statement
 				if (this.personalityTraits[traits].getIntensity() > 
 						(statementPool.get(index).getMinPersonalityTraits())[traits]
 						&& requirementsMet) 
 				{
-					possibleResponses.add(statementPool.get(index));
+				    if (this.personalityTraits[traits].getIntensity() < 
+                    (statementPool.get(index).getMaxPersonalityTraits())[traits]) 
+				    {
+				        possibleResponses.add(statementPool.get(index));
+				    }
 				} 
 				else // if one min requirement isn't met, don't add statement
 				{

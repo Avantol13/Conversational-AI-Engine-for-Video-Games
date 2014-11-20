@@ -14,6 +14,11 @@
       <minExtraversion>0.3</minExtraversion>
       <minAgreeableness>0.4</minAgreeableness>
       <minNeuroticism>0.4</minNeuroticism>
+	  <maxOpennessToExperience>1.0</maxOpennessToExperience>
+      <maxConscientiousness>1.0</maxConscientiousness>
+      <maxExtraversion>1.0</maxExtraversion>
+      <maxAgreeableness>1.0</maxAgreeableness>
+      <maxNeuroticism>1.0</maxNeuroticism>
       <nextTopic>Fruit</nextTopic>
     </statement>
   </statements>

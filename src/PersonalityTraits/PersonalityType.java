@@ -7,7 +7,6 @@ import Emotions.*;
  */
 public class PersonalityType
 {
-	
 	/** The name. */
 	private String name;
 	

@@ -88,32 +88,56 @@ public class ApplicationData
         Statement statement0 = new Statement(topic, 
                 "I love apples.",
                 .1, .1, .1, .1, .1, .1, .1, .1,
-                .5, .4, .6, .4, .2);
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0);
         
         Statement statement1 = new Statement(topic,
                 "Orange you glad to see me?",
                 .1, .1, .1, .1, .1, .1, .1, .1,
-                .1, .2, .3, .4, .4);
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0);
         
         Statement statement2 = new Statement(topic,
                 "Limes and lemons and stuff.",
                 .1, .1, .1, .1, .1, .1, .1, .1,
-                .4, .3, .2, .8, .3);
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0);
       
         Statement statement3 = new Statement(topic, 
                 "Raspberries is spelled funny.",
                 .1, .1, .1, .1, .1, .1, .1, .1,
-                .5, .4, .6, .4, .2);
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0);
         
         Statement statement4 = new Statement(topic,
                 "You look like a goofy banana.",
                 .1, .1, .1, .1, .1, .1, .1, .1,
-                .1, .2, .3, .4, .4);
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0);
         
         Statement statement5 = new Statement(topic,
                 "I hate pineapples.",
                 .1, .1, .1, .1, .1, .1, .1, .1,
-                .4, .3, .2, .8, .3);
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0,
+                .5, 1.0);
         
         LinkedList<Statement> statements = new LinkedList<Statement>();
         statements.add(statement0);
@@ -148,13 +172,15 @@ public class ApplicationData
         xstream.omitField(Statement.class, "topic");
         xstream.omitField(Statement.class, "delEmotions");
         xstream.omitField(Statement.class, "minPersonalityTraits");
+        xstream.omitField(Statement.class, "maxPersonalityTraits");
         xstream.omitField(Statement.class, "nextTopic");
+        xstream.omitField(Statement.class, "whoSaidIt");
         xstream.aliasField("nextTopic", Statement.class, "nextTopicTitle");
         
         // Loop through all the topics and create an XML file for each one.
         for (int index = 0; index < topics.size(); index++)
         {
-           //TODO: Finish XML test code
+            //TODO: Finish XML test code
             FileWriter filewriter = null;
             try 
             {
@@ -254,9 +280,11 @@ public class ApplicationData
             xstream.omitField(Statement.class, "topic");
             xstream.omitField(Statement.class, "delEmotions");
             xstream.omitField(Statement.class, "minPersonalityTraits");
+            xstream.omitField(Statement.class, "maxPersonalityTraits");
             xstream.omitField(Statement.class, "nextTopic");
+            xstream.omitField(Statement.class, "whoSaidIt");
             xstream.aliasField("nextTopic", Statement.class, "nextTopicTitle");
-            
+                        
             // Get the topic from the current XML file. 
             Topic newTopic = (Topic)xstream.fromXML(files.get(index));
             

@@ -197,21 +197,6 @@ public class Application
     /** The text field_5. */
     private JTextField textField_5;
     
-    /** The Statement right_ o. */
-    private JTextField StatementRight_O;
-    
-    /** The Statement right_ c. */
-    private JTextField StatementRight_C;
-    
-    /** The Statement right_ e. */
-    private JTextField StatementRight_E;
-    
-    /** The Statement right_ a. */
-    private JTextField StatementRight_A;
-    
-    /** The Statement right_ n. */
-    private JTextField StatementRight_N;
-    
     /** The panel_1. */
     private JPanel panel_1;
     
@@ -365,21 +350,6 @@ public class Application
     /** The text field_82. */
     private JTextField textField_82;
     
-    /** The Statement left_ o. */
-    private JTextField StatementLeft_O;
-    
-    /** The Statement left_ c. */
-    private JTextField StatementLeft_C;
-    
-    /** The Statement left_ e. */
-    private JTextField StatementLeft_E;
-    
-    /** The Statement left_ a. */
-    private JTextField StatementLeft_A;
-    
-    /** The Statement left_ n. */
-    private JTextField StatementLeft_N;
-    
     /** The panel_10. */
     private JPanel panel_10;
     
@@ -496,7 +466,37 @@ public class Application
     
     /** The mntm people. */
     private JMenuItem mntmPeople;
-
+    private JPanel panel;
+    private JTextField StatementLeft_O_Max;
+    private JTextField StatementLeft_O;
+    private JPanel panel_2;
+    private JTextField StatementLeft_C_Max;
+    private JTextField StatementLeft_C;
+    private JPanel panel_3;
+    private JTextField StatementLeft_E_Max;
+    private JTextField StatementLeft_E;
+    private JPanel panel_5;
+    private JTextField StatementLeft_A_Max;
+    private JTextField StatementLeft_A;
+    private JPanel panel_6;
+    private JTextField StatementLeft_N_Max;
+    private JTextField StatementLeft_N;
+    private JPanel panel_8;
+    private JPanel panel_9;
+    private JPanel panel_11;
+    private JPanel panel_12;
+    private JPanel panel_13;
+    private JTextField StatementRight_O_Max;
+    private JTextField StatementRight_O;
+    private JTextField StatementRight_C_Max;
+    private JTextField StatementRight_C;
+    private JTextField StatementRight_E_Max;
+    private JTextField StatementRight_E;
+    private JTextField StatementRight_A_Max;
+    private JTextField StatementRight_A;
+    private JTextField StatementRight_N_Max;
+    private JTextField StatementRight_N;
+    
     /**
      * Launch the application.
      *
@@ -621,6 +621,7 @@ public class Application
         try
         {
             double[] minPersonalityTraits_leftStatement = leftStatement.getMinPersonalityTraits();
+            double[] maxPersonalityTraits_leftStatement = leftStatement.getMaxPersonalityTraits();
             double[] delEmotions_leftStatement = leftStatement.getDelEmotions();
 
             // Left statement minimum personality requirements and delta emotions
@@ -637,6 +638,11 @@ public class Application
             StatementLeft_E.setText("" + decimalFormat.format(minPersonalityTraits_leftStatement[2]));
             StatementLeft_A.setText("" + decimalFormat.format(minPersonalityTraits_leftStatement[3]));
             StatementLeft_N.setText("" + decimalFormat.format(minPersonalityTraits_leftStatement[4]));
+            StatementLeft_O_Max.setText("" + decimalFormat.format(maxPersonalityTraits_leftStatement[0]));
+            StatementLeft_C_Max.setText("" + decimalFormat.format(maxPersonalityTraits_leftStatement[1]));
+            StatementLeft_E_Max.setText("" + decimalFormat.format(maxPersonalityTraits_leftStatement[2]));
+            StatementLeft_A_Max.setText("" + decimalFormat.format(maxPersonalityTraits_leftStatement[3]));
+            StatementLeft_N_Max.setText("" + decimalFormat.format(maxPersonalityTraits_leftStatement[4]));
         }
         catch (NullPointerException exc)
         {
@@ -711,6 +717,7 @@ public class Application
         try
         {
             double[] minPersonalityTraits_rightStatement = rightStatement.getMinPersonalityTraits();
+            double[] maxPersonalityTraits_rightStatement = rightStatement.getMaxPersonalityTraits();
             double[] delEmotions_rightStatement = rightStatement.getDelEmotions();
             
             // Right statement minimum personality requirements and delta emotions
@@ -727,6 +734,11 @@ public class Application
             StatementRight_E.setText("" + decimalFormat.format(minPersonalityTraits_rightStatement[2]));
             StatementRight_A.setText("" + decimalFormat.format(minPersonalityTraits_rightStatement[3]));
             StatementRight_N.setText("" + decimalFormat.format(minPersonalityTraits_rightStatement[4]));
+            StatementRight_O_Max.setText("" + decimalFormat.format(maxPersonalityTraits_rightStatement[0]));
+            StatementRight_C_Max.setText("" + decimalFormat.format(maxPersonalityTraits_rightStatement[1]));
+            StatementRight_E_Max.setText("" + decimalFormat.format(maxPersonalityTraits_rightStatement[2]));
+            StatementRight_A_Max.setText("" + decimalFormat.format(maxPersonalityTraits_rightStatement[3]));
+            StatementRight_N_Max.setText("" + decimalFormat.format(maxPersonalityTraits_rightStatement[4]));
         }
         catch (NullPointerException exc)
         {
@@ -1425,7 +1437,7 @@ public class Application
         gbl_StatementInfoLeft.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
         gbl_StatementInfoLeft.rowHeights = new int[]{0, 0, 0, 0, 0};
         gbl_StatementInfoLeft.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-        gbl_StatementInfoLeft.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+        gbl_StatementInfoLeft.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
         StatementInfoLeft.setLayout(gbl_StatementInfoLeft);
         
         txtOpenToExperience_1 = new JTextField();
@@ -1488,60 +1500,184 @@ public class Application
         gbc_textField_82.gridy = 0;
         StatementInfoLeft.add(textField_82, gbc_textField_82);
         
+        //********** Begin statement min max personality requirements *********************
+        
+        panel = new JPanel();
+        GridBagConstraints gbc_panel = new GridBagConstraints();
+        gbc_panel.insets = new Insets(0, 0, 5, 5);
+        gbc_panel.fill = GridBagConstraints.BOTH;
+        gbc_panel.gridx = 0;
+        gbc_panel.gridy = 1;
+        StatementInfoLeft.add(panel, gbc_panel);
+        GridBagLayout gbl_panel = new GridBagLayout();
+        gbl_panel.columnWidths = new int[]{0, 0, 0};
+        gbl_panel.rowHeights = new int[]{0, 0};
+        gbl_panel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel.setLayout(gbl_panel);
+        
         StatementLeft_O = new JTextField();
         StatementLeft_O.setHorizontalAlignment(SwingConstants.CENTER);
         StatementLeft_O.setEditable(false);
         StatementLeft_O.setColumns(10);
         GridBagConstraints gbc_StatementLeft_O = new GridBagConstraints();
+        gbc_StatementLeft_O.insets = new Insets(0, 0, 0, 5);
         gbc_StatementLeft_O.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementLeft_O.insets = new Insets(0, 0, 5, 5);
         gbc_StatementLeft_O.gridx = 0;
-        gbc_StatementLeft_O.gridy = 1;
-        StatementInfoLeft.add(StatementLeft_O, gbc_StatementLeft_O);
+        gbc_StatementLeft_O.gridy = 0;
+        panel.add(StatementLeft_O, gbc_StatementLeft_O);
+        
+        StatementLeft_O_Max = new JTextField();
+        StatementLeft_O_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementLeft_O_Max.setEditable(false);
+        GridBagConstraints gbc_StatementLeft_O_Max = new GridBagConstraints();
+        gbc_StatementLeft_O_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementLeft_O_Max.gridx = 1;
+        gbc_StatementLeft_O_Max.gridy = 0;
+        panel.add(StatementLeft_O_Max, gbc_StatementLeft_O_Max);
+        StatementLeft_O_Max.setColumns(10);
+        
+        panel_2 = new JPanel();
+        GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+        gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_2.fill = GridBagConstraints.BOTH;
+        gbc_panel_2.gridx = 1;
+        gbc_panel_2.gridy = 1;
+        StatementInfoLeft.add(panel_2, gbc_panel_2);
+        GridBagLayout gbl_panel_2 = new GridBagLayout();
+        gbl_panel_2.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_2.rowHeights = new int[]{0, 0};
+        gbl_panel_2.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_2.setLayout(gbl_panel_2);
         
         StatementLeft_C = new JTextField();
         StatementLeft_C.setHorizontalAlignment(SwingConstants.CENTER);
         StatementLeft_C.setEditable(false);
         StatementLeft_C.setColumns(10);
         GridBagConstraints gbc_StatementLeft_C = new GridBagConstraints();
+        gbc_StatementLeft_C.insets = new Insets(0, 0, 0, 5);
         gbc_StatementLeft_C.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementLeft_C.insets = new Insets(0, 0, 5, 5);
-        gbc_StatementLeft_C.gridx = 1;
-        gbc_StatementLeft_C.gridy = 1;
-        StatementInfoLeft.add(StatementLeft_C, gbc_StatementLeft_C);
+        gbc_StatementLeft_C.gridx = 0;
+        gbc_StatementLeft_C.gridy = 0;
+        panel_2.add(StatementLeft_C, gbc_StatementLeft_C);
+        
+        StatementLeft_C_Max = new JTextField();
+        StatementLeft_C_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementLeft_C_Max.setEditable(false);
+        GridBagConstraints gbc_StatementLeft_C_Max = new GridBagConstraints();
+        gbc_StatementLeft_C_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementLeft_C_Max.gridx = 1;
+        gbc_StatementLeft_C_Max.gridy = 0;
+        panel_2.add(StatementLeft_C_Max, gbc_StatementLeft_C_Max);
+        StatementLeft_C_Max.setColumns(10);
+        
+        panel_3 = new JPanel();
+        GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+        gbc_panel_3.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_3.fill = GridBagConstraints.BOTH;
+        gbc_panel_3.gridx = 2;
+        gbc_panel_3.gridy = 1;
+        StatementInfoLeft.add(panel_3, gbc_panel_3);
+        GridBagLayout gbl_panel_3 = new GridBagLayout();
+        gbl_panel_3.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_3.rowHeights = new int[]{0, 0};
+        gbl_panel_3.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_3.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_3.setLayout(gbl_panel_3);
         
         StatementLeft_E = new JTextField();
         StatementLeft_E.setHorizontalAlignment(SwingConstants.CENTER);
         StatementLeft_E.setEditable(false);
         StatementLeft_E.setColumns(10);
         GridBagConstraints gbc_StatementLeft_E = new GridBagConstraints();
+        gbc_StatementLeft_E.insets = new Insets(0, 0, 0, 5);
         gbc_StatementLeft_E.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementLeft_E.insets = new Insets(0, 0, 5, 5);
-        gbc_StatementLeft_E.gridx = 2;
-        gbc_StatementLeft_E.gridy = 1;
-        StatementInfoLeft.add(StatementLeft_E, gbc_StatementLeft_E);
+        gbc_StatementLeft_E.gridx = 0;
+        gbc_StatementLeft_E.gridy = 0;
+        panel_3.add(StatementLeft_E, gbc_StatementLeft_E);
+        
+        StatementLeft_E_Max = new JTextField();
+        StatementLeft_E_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementLeft_E_Max.setEditable(false);
+        GridBagConstraints gbc_StatementLeft_E_Max = new GridBagConstraints();
+        gbc_StatementLeft_E_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementLeft_E_Max.gridx = 1;
+        gbc_StatementLeft_E_Max.gridy = 0;
+        panel_3.add(StatementLeft_E_Max, gbc_StatementLeft_E_Max);
+        StatementLeft_E_Max.setColumns(10);
+        
+        panel_5 = new JPanel();
+        GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+        gbc_panel_5.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_5.fill = GridBagConstraints.BOTH;
+        gbc_panel_5.gridx = 3;
+        gbc_panel_5.gridy = 1;
+        StatementInfoLeft.add(panel_5, gbc_panel_5);
+        GridBagLayout gbl_panel_5 = new GridBagLayout();
+        gbl_panel_5.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_5.rowHeights = new int[]{0, 0};
+        gbl_panel_5.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_5.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_5.setLayout(gbl_panel_5);
         
         StatementLeft_A = new JTextField();
         StatementLeft_A.setHorizontalAlignment(SwingConstants.CENTER);
         StatementLeft_A.setEditable(false);
         StatementLeft_A.setColumns(10);
         GridBagConstraints gbc_StatementLeft_A = new GridBagConstraints();
+        gbc_StatementLeft_A.insets = new Insets(0, 0, 0, 5);
         gbc_StatementLeft_A.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementLeft_A.insets = new Insets(0, 0, 5, 5);
-        gbc_StatementLeft_A.gridx = 3;
-        gbc_StatementLeft_A.gridy = 1;
-        StatementInfoLeft.add(StatementLeft_A, gbc_StatementLeft_A);
+        gbc_StatementLeft_A.gridx = 0;
+        gbc_StatementLeft_A.gridy = 0;
+        panel_5.add(StatementLeft_A, gbc_StatementLeft_A);
+        
+        StatementLeft_A_Max = new JTextField();
+        StatementLeft_A_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementLeft_A_Max.setEditable(false);
+        GridBagConstraints gbc_StatementLeft_A_Max = new GridBagConstraints();
+        gbc_StatementLeft_A_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementLeft_A_Max.gridx = 1;
+        gbc_StatementLeft_A_Max.gridy = 0;
+        panel_5.add(StatementLeft_A_Max, gbc_StatementLeft_A_Max);
+        StatementLeft_A_Max.setColumns(10);
+        
+        panel_6 = new JPanel();
+        GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+        gbc_panel_6.insets = new Insets(0, 0, 5, 0);
+        gbc_panel_6.fill = GridBagConstraints.BOTH;
+        gbc_panel_6.gridx = 4;
+        gbc_panel_6.gridy = 1;
+        StatementInfoLeft.add(panel_6, gbc_panel_6);
+        GridBagLayout gbl_panel_6 = new GridBagLayout();
+        gbl_panel_6.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_6.rowHeights = new int[]{0, 0};
+        gbl_panel_6.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_6.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_6.setLayout(gbl_panel_6);
         
         StatementLeft_N = new JTextField();
         StatementLeft_N.setHorizontalAlignment(SwingConstants.CENTER);
         StatementLeft_N.setEditable(false);
         StatementLeft_N.setColumns(10);
         GridBagConstraints gbc_StatementLeft_N = new GridBagConstraints();
+        gbc_StatementLeft_N.insets = new Insets(0, 0, 0, 5);
         gbc_StatementLeft_N.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementLeft_N.insets = new Insets(0, 0, 5, 0);
-        gbc_StatementLeft_N.gridx = 4;
-        gbc_StatementLeft_N.gridy = 1;
-        StatementInfoLeft.add(StatementLeft_N, gbc_StatementLeft_N);
+        gbc_StatementLeft_N.gridx = 0;
+        gbc_StatementLeft_N.gridy = 0;
+        panel_6.add(StatementLeft_N, gbc_StatementLeft_N);
+        
+        StatementLeft_N_Max = new JTextField();
+        StatementLeft_N_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementLeft_N_Max.setEditable(false);
+        GridBagConstraints gbc_StatementLeft_N_Max = new GridBagConstraints();
+        gbc_StatementLeft_N_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementLeft_N_Max.gridx = 1;
+        gbc_StatementLeft_N_Max.gridy = 0;
+        panel_6.add(StatementLeft_N_Max, gbc_StatementLeft_N_Max);
+        StatementLeft_N_Max.setColumns(10);
+        
+        //*********** End statement min max personality requirements **********************
         
         panel_10 = new JPanel();
         GridBagConstraints gbc_panel_10 = new GridBagConstraints();
@@ -1832,30 +1968,6 @@ public class Application
         responderBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
         responderBox.setHorizontalAlignment(SwingConstants.CENTER);
         responderBox.setEditable(false);
-		
-		/* TODO Remove. Don't need this.
-        comboBox_1.addActionListener(new ActionListener() 
-        {
-            public void actionPerformed(ActionEvent e) 
-            {
-                String name = comboBox_1.getSelectedItem().toString();
-                //TODO Fix encapsulation here. I'm passing in a global variable.
-                //What the butts? Maybe have an overloaded method with no second
-                //parameter and it'll access the global? Probs a good idea...
-                  
-                rightPerson = searchPerson(name, people);
-                updateGUI();
-            }
-        });
-       
-        // The people to add to the combo box
-        String[] PeopleForComboBox2 = new String[people.size()];            
-        for(int count = 0; count < this.people.size(); count++)
-        {
-            PeopleForComboBox2[count] = this.people.get(count).getName();
-        }
-        comboBox_1.setModel(new DefaultComboBoxModel(PeopleForComboBox2));
-        */
 		
         GridBagConstraints gbc_responderBox = new GridBagConstraints();
         gbc_responderBox.insets = new Insets(0, 0, 5, 0);
@@ -2258,7 +2370,7 @@ public class Application
         gbl_StatementInfoRight.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
         gbl_StatementInfoRight.rowHeights = new int[]{0, 0, 0, 0, 0};
         gbl_StatementInfoRight.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-        gbl_StatementInfoRight.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+        gbl_StatementInfoRight.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
         StatementInfoRight.setLayout(gbl_StatementInfoRight);
         
         txtOpenToExperience_3 = new JTextField();
@@ -2321,60 +2433,180 @@ public class Application
         gbc_textField_5.gridy = 0;
         StatementInfoRight.add(textField_5, gbc_textField_5);
         
+        panel_8 = new JPanel();
+        GridBagConstraints gbc_panel_8 = new GridBagConstraints();
+        gbc_panel_8.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_8.fill = GridBagConstraints.BOTH;
+        gbc_panel_8.gridx = 0;
+        gbc_panel_8.gridy = 1;
+        StatementInfoRight.add(panel_8, gbc_panel_8);
+        GridBagLayout gbl_panel_8 = new GridBagLayout();
+        gbl_panel_8.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_8.rowHeights = new int[]{0, 0};
+        gbl_panel_8.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_8.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_8.setLayout(gbl_panel_8);
+        
         StatementRight_O = new JTextField();
         StatementRight_O.setHorizontalAlignment(SwingConstants.CENTER);
         StatementRight_O.setEditable(false);
-        StatementRight_O.setColumns(10);
         GridBagConstraints gbc_StatementRight_O = new GridBagConstraints();
+        gbc_StatementRight_O.insets = new Insets(0, 0, 0, 5);
         gbc_StatementRight_O.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementRight_O.insets = new Insets(0, 0, 5, 5);
         gbc_StatementRight_O.gridx = 0;
-        gbc_StatementRight_O.gridy = 1;
-        StatementInfoRight.add(StatementRight_O, gbc_StatementRight_O);
+        gbc_StatementRight_O.gridy = 0;
+        panel_8.add(StatementRight_O, gbc_StatementRight_O);
+        StatementRight_O.setColumns(10);
+        
+        StatementRight_O_Max = new JTextField();
+        StatementRight_O_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementRight_O_Max.setEditable(false);
+        GridBagConstraints gbc_StatementRight_O_Max = new GridBagConstraints();
+        gbc_StatementRight_O_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementRight_O_Max.gridx = 1;
+        gbc_StatementRight_O_Max.gridy = 0;
+        panel_8.add(StatementRight_O_Max, gbc_StatementRight_O_Max);
+        StatementRight_O_Max.setColumns(10);
+        
+        panel_9 = new JPanel();
+        GridBagConstraints gbc_panel_9 = new GridBagConstraints();
+        gbc_panel_9.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_9.fill = GridBagConstraints.BOTH;
+        gbc_panel_9.gridx = 1;
+        gbc_panel_9.gridy = 1;
+        StatementInfoRight.add(panel_9, gbc_panel_9);
+        GridBagLayout gbl_panel_9 = new GridBagLayout();
+        gbl_panel_9.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_9.rowHeights = new int[]{0, 0};
+        gbl_panel_9.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_9.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_9.setLayout(gbl_panel_9);
         
         StatementRight_C = new JTextField();
         StatementRight_C.setHorizontalAlignment(SwingConstants.CENTER);
         StatementRight_C.setEditable(false);
-        StatementRight_C.setColumns(10);
         GridBagConstraints gbc_StatementRight_C = new GridBagConstraints();
+        gbc_StatementRight_C.insets = new Insets(0, 0, 0, 5);
         gbc_StatementRight_C.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementRight_C.insets = new Insets(0, 0, 5, 5);
-        gbc_StatementRight_C.gridx = 1;
-        gbc_StatementRight_C.gridy = 1;
-        StatementInfoRight.add(StatementRight_C, gbc_StatementRight_C);
+        gbc_StatementRight_C.gridx = 0;
+        gbc_StatementRight_C.gridy = 0;
+        panel_9.add(StatementRight_C, gbc_StatementRight_C);
+        StatementRight_C.setColumns(10);
+        
+        StatementRight_C_Max = new JTextField();
+        StatementRight_C_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementRight_C_Max.setEditable(false);
+        GridBagConstraints gbc_StatementRight_C_Max = new GridBagConstraints();
+        gbc_StatementRight_C_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementRight_C_Max.gridx = 1;
+        gbc_StatementRight_C_Max.gridy = 0;
+        panel_9.add(StatementRight_C_Max, gbc_StatementRight_C_Max);
+        StatementRight_C_Max.setColumns(10);
+        
+        panel_11 = new JPanel();
+        GridBagConstraints gbc_panel_11 = new GridBagConstraints();
+        gbc_panel_11.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_11.fill = GridBagConstraints.BOTH;
+        gbc_panel_11.gridx = 2;
+        gbc_panel_11.gridy = 1;
+        StatementInfoRight.add(panel_11, gbc_panel_11);
+        GridBagLayout gbl_panel_11 = new GridBagLayout();
+        gbl_panel_11.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_11.rowHeights = new int[]{0, 0};
+        gbl_panel_11.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_11.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_11.setLayout(gbl_panel_11);
         
         StatementRight_E = new JTextField();
         StatementRight_E.setHorizontalAlignment(SwingConstants.CENTER);
         StatementRight_E.setEditable(false);
-        StatementRight_E.setColumns(10);
         GridBagConstraints gbc_StatementRight_E = new GridBagConstraints();
+        gbc_StatementRight_E.insets = new Insets(0, 0, 0, 5);
         gbc_StatementRight_E.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementRight_E.insets = new Insets(0, 0, 5, 5);
-        gbc_StatementRight_E.gridx = 2;
-        gbc_StatementRight_E.gridy = 1;
-        StatementInfoRight.add(StatementRight_E, gbc_StatementRight_E);
+        gbc_StatementRight_E.gridx = 0;
+        gbc_StatementRight_E.gridy = 0;
+        panel_11.add(StatementRight_E, gbc_StatementRight_E);
+        StatementRight_E.setColumns(10);
+        
+        StatementRight_E_Max = new JTextField();
+        StatementRight_E_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementRight_E_Max.setEditable(false);
+        GridBagConstraints gbc_StatementRight_E_Max = new GridBagConstraints();
+        gbc_StatementRight_E_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementRight_E_Max.gridx = 1;
+        gbc_StatementRight_E_Max.gridy = 0;
+        panel_11.add(StatementRight_E_Max, gbc_StatementRight_E_Max);
+        StatementRight_E_Max.setColumns(10);
+        
+        panel_12 = new JPanel();
+        GridBagConstraints gbc_panel_12 = new GridBagConstraints();
+        gbc_panel_12.insets = new Insets(0, 0, 5, 5);
+        gbc_panel_12.fill = GridBagConstraints.BOTH;
+        gbc_panel_12.gridx = 3;
+        gbc_panel_12.gridy = 1;
+        StatementInfoRight.add(panel_12, gbc_panel_12);
+        GridBagLayout gbl_panel_12 = new GridBagLayout();
+        gbl_panel_12.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_12.rowHeights = new int[]{0, 0};
+        gbl_panel_12.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_12.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_12.setLayout(gbl_panel_12);
         
         StatementRight_A = new JTextField();
         StatementRight_A.setHorizontalAlignment(SwingConstants.CENTER);
         StatementRight_A.setEditable(false);
-        StatementRight_A.setColumns(10);
         GridBagConstraints gbc_StatementRight_A = new GridBagConstraints();
+        gbc_StatementRight_A.insets = new Insets(0, 0, 0, 5);
         gbc_StatementRight_A.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementRight_A.insets = new Insets(0, 0, 5, 5);
-        gbc_StatementRight_A.gridx = 3;
-        gbc_StatementRight_A.gridy = 1;
-        StatementInfoRight.add(StatementRight_A, gbc_StatementRight_A);
+        gbc_StatementRight_A.gridx = 0;
+        gbc_StatementRight_A.gridy = 0;
+        panel_12.add(StatementRight_A, gbc_StatementRight_A);
+        StatementRight_A.setColumns(10);
+        
+        StatementRight_A_Max = new JTextField();
+        StatementRight_A_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementRight_A_Max.setEditable(false);
+        GridBagConstraints gbc_StatementRight_A_Max = new GridBagConstraints();
+        gbc_StatementRight_A_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementRight_A_Max.gridx = 1;
+        gbc_StatementRight_A_Max.gridy = 0;
+        panel_12.add(StatementRight_A_Max, gbc_StatementRight_A_Max);
+        StatementRight_A_Max.setColumns(10);
+        
+        panel_13 = new JPanel();
+        GridBagConstraints gbc_panel_13 = new GridBagConstraints();
+        gbc_panel_13.insets = new Insets(0, 0, 5, 0);
+        gbc_panel_13.fill = GridBagConstraints.BOTH;
+        gbc_panel_13.gridx = 4;
+        gbc_panel_13.gridy = 1;
+        StatementInfoRight.add(panel_13, gbc_panel_13);
+        GridBagLayout gbl_panel_13 = new GridBagLayout();
+        gbl_panel_13.columnWidths = new int[]{0, 0, 0};
+        gbl_panel_13.rowHeights = new int[]{0, 0};
+        gbl_panel_13.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+        gbl_panel_13.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+        panel_13.setLayout(gbl_panel_13);
         
         StatementRight_N = new JTextField();
         StatementRight_N.setHorizontalAlignment(SwingConstants.CENTER);
         StatementRight_N.setEditable(false);
-        StatementRight_N.setColumns(10);
         GridBagConstraints gbc_StatementRight_N = new GridBagConstraints();
+        gbc_StatementRight_N.insets = new Insets(0, 0, 0, 5);
         gbc_StatementRight_N.fill = GridBagConstraints.HORIZONTAL;
-        gbc_StatementRight_N.insets = new Insets(0, 0, 5, 0);
-        gbc_StatementRight_N.gridx = 4;
-        gbc_StatementRight_N.gridy = 1;
-        StatementInfoRight.add(StatementRight_N, gbc_StatementRight_N);
+        gbc_StatementRight_N.gridx = 0;
+        gbc_StatementRight_N.gridy = 0;
+        panel_13.add(StatementRight_N, gbc_StatementRight_N);
+        StatementRight_N.setColumns(10);
+        
+        StatementRight_N_Max = new JTextField();
+        StatementRight_N_Max.setHorizontalAlignment(SwingConstants.CENTER);
+        StatementRight_N_Max.setEditable(false);
+        GridBagConstraints gbc_StatementRight_N_Max = new GridBagConstraints();
+        gbc_StatementRight_N_Max.fill = GridBagConstraints.HORIZONTAL;
+        gbc_StatementRight_N_Max.gridx = 1;
+        gbc_StatementRight_N_Max.gridy = 0;
+        panel_13.add(StatementRight_N_Max, gbc_StatementRight_N_Max);
+        StatementRight_N_Max.setColumns(10);
         
         panel_1 = new JPanel();
         GridBagConstraints gbc_panel_1 = new GridBagConstraints();

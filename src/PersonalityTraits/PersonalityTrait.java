@@ -2,13 +2,11 @@ package PersonalityTraits;
 
 import java.util.Arrays;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PersonalityTrait, containing variables and methods common to all personality traits.
  */
 public abstract class PersonalityTrait
 {
-	
 	/** The name of the emotion. */
 	protected String name; 
 	

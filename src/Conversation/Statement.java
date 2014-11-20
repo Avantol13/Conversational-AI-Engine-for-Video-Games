@@ -1,10 +1,10 @@
 package Conversation;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import People.Person;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Statement.
  */
@@ -47,9 +47,23 @@ public class Statement
 	/** The minimum level of personality trait Neuroticism required to say the statement. */
 	protected double minNeuroticism;
 	
+	/** The maximum level of personality trait OpennessToExperience required to say the statement. */
+    protected double maxOpennessToExperience;
+    /** The maximum level of personality trait Conscientiousness required to say the statement. */
+    protected double maxConscientiousness;
+    /** The maximum level of personality trait Extraversion required to say the statement. */
+    protected double maxExtraversion;
+    /** The maximum level of personality trait Agreeableness required to say the statement. */
+    protected double maxAgreeableness;
+    /** The maximum level of personality trait Neuroticism required to say the statement. */
+    protected double maxNeuroticism;
+    
 	/** The minimum for all personality traits. Alternate, condensed version */
 	protected double[] minPersonalityTraits;
 
+	/** The maximum for all personality traits. Alternate, condensed version */
+    protected double[] maxPersonalityTraits;
+    
     /**  The topic this statement will transition to. */
     protected Topic nextTopic;
     
@@ -81,12 +95,15 @@ public class Statement
 	 * @param minAgreeableness the minimum agreeableness required
 	 * @param minNeuroticism the minimum neuroticism required
 	 */
-	public Statement(Topic topic, Topic nextTopic, String text, double delJoy, double delSadness, double delAnger,
+	public Statement(Topic topic, Topic nextTopic, String text, 
+	        double delJoy, double delSadness, double delAnger,
 			double delFear, double delDisgust, double delSurprise,
 			double delAnticipation, double delTrust,
-			double minOpennessToExperience, double minConscientiousness,
-			double minExtraversion, double minAgreeableness,
-			double minNeuroticism) 
+			double minOpennessToExperience, double maxOpennessToExperience,
+			double minConscientiousness, double maxConscientiousness,
+			double minExtraversion, double maxExtraversion,
+			double minAgreeableness, double maxAgreeableness,
+			double minNeuroticism, double maxNeuroticism) 
 	{
 	    this.topic = topic;
 	    this.nextTopic = nextTopic;
@@ -107,6 +124,12 @@ public class Statement
 		this.minAgreeableness = minAgreeableness;
 		this.minNeuroticism = minNeuroticism;
 		
+		this.maxOpennessToExperience = maxOpennessToExperience;
+        this.maxConscientiousness = maxConscientiousness;
+        this.maxExtraversion = maxExtraversion;
+        this.maxAgreeableness = maxAgreeableness;
+        this.maxNeuroticism = maxNeuroticism;
+        
 		this.delEmotions = new double[8]; //TODO HARD-CODED = BAD. MORE MODULAR.
 		this.minPersonalityTraits = new double[5]; //TODO HARD-CODED = BAD. MORE MODULAR.
 		
@@ -135,12 +158,15 @@ public class Statement
 	 * @param minAgreeableness the minimum agreeableness required
 	 * @param minNeuroticism the minimum neuroticism required
 	 */
-    public Statement(Topic topic, String text, double delJoy, double delSadness, double delAnger,
+	public Statement(Topic topic, String text, 
+            double delJoy, double delSadness, double delAnger,
             double delFear, double delDisgust, double delSurprise,
             double delAnticipation, double delTrust,
-            double minOpennessToExperience, double minConscientiousness,
-            double minExtraversion, double minAgreeableness,
-            double minNeuroticism) 
+            double minOpennessToExperience, double maxOpennessToExperience,
+            double minConscientiousness, double maxConscientiousness,
+            double minExtraversion, double maxExtraversion,
+            double minAgreeableness, double maxAgreeableness,
+            double minNeuroticism, double maxNeuroticism) 
     {
         this.topic = topic;
         this.nextTopic = null; //TODO: THIS MAY BE A BAD IDEA SETTING NEXTTOPIC TO NULL. FIGURE OUT HOW TO HANDLE END OF CONVO.
@@ -160,6 +186,12 @@ public class Statement
         this.minExtraversion = minExtraversion;
         this.minAgreeableness = minAgreeableness;
         this.minNeuroticism = minNeuroticism;
+        
+        this.maxOpennessToExperience = maxOpennessToExperience;
+        this.maxConscientiousness = maxConscientiousness;
+        this.maxExtraversion = maxExtraversion;
+        this.maxAgreeableness = maxAgreeableness;
+        this.maxNeuroticism = maxNeuroticism;
         
         this.delEmotions = new double[8]; //TODO HARD-CODED = BAD. MORE MODULAR.
         this.minPersonalityTraits = new double[5]; //TODO HARD-CODED = BAD. MORE MODULAR.
@@ -609,8 +641,57 @@ public class Statement
 		this.minNeuroticism = minNeuroticism;
 	}
 
-	//
-	/**
+	public double getMaxOpennessToExperience() 
+	{
+        return maxOpennessToExperience;
+    }
+
+    public void setMaxOpennessToExperience(double maxOpennessToExperience) 
+    {
+        this.maxOpennessToExperience = maxOpennessToExperience;
+    }
+
+    public double getMaxConscientiousness() 
+    {
+        return maxConscientiousness;
+    }
+
+    public void setMaxConscientiousness(double maxConscientiousness) 
+    {
+        this.maxConscientiousness = maxConscientiousness;
+    }
+
+    public double getMaxExtraversion() 
+    {
+        return maxExtraversion;
+    }
+
+    public void setMaxExtraversion(double maxExtraversion) 
+    {
+        this.maxExtraversion = maxExtraversion;
+    }
+
+    public double getMaxAgreeableness() 
+    {
+        return maxAgreeableness;
+    }
+
+    public void setMaxAgreeableness(double maxAgreeableness) 
+    {
+        this.maxAgreeableness = maxAgreeableness;
+    }
+
+    public double getMaxNeuroticism() 
+    {
+        return maxNeuroticism;
+    }
+
+    public void setMaxNeuroticism(double maxNeuroticism) 
+    {
+        this.maxNeuroticism = maxNeuroticism;
+    }
+
+    /**
 	 * Gets the min personality traits.
 	 *
 	 * @return the min personality traits
@@ -645,6 +726,41 @@ public class Statement
 		this.setMinNeuroticism(minPersonalityTraits[4]);
 	}
 
+    /**
+     * Gets the max personality traits.
+     *
+     * @return the max personality traits
+     */
+    public double[] getMaxPersonalityTraits() 
+    {
+        maxPersonalityTraits = new double[5];
+        //Create condensed version of personality traits
+        this.maxPersonalityTraits[0] = this.maxOpennessToExperience;
+        this.maxPersonalityTraits[1] = this.maxConscientiousness;
+        this.maxPersonalityTraits[2] = this.maxExtraversion;
+        this.maxPersonalityTraits[3] = this.maxAgreeableness;
+        this.maxPersonalityTraits[4] = this.maxNeuroticism;
+        return maxPersonalityTraits;
+    }
+    
+    /**
+     * Sets the max personality traits.
+     *
+     * @param maxPersonalityTraits the new max personality traits
+     */
+    public void setMaxPersonalityTraits(double[] maxPersonalityTraits) 
+    {
+        this.maxPersonalityTraits = maxPersonalityTraits;
+        
+        //make sure to change the individual variables as well as the
+        //condensed version
+        this.setMaxOpennessToExperience(maxPersonalityTraits[0]);
+        this.setMaxConscientiousness(maxPersonalityTraits[1]);
+        this.setMaxExtraversion(maxPersonalityTraits[2]);
+        this.setMaxAgreeableness(maxPersonalityTraits[3]);
+        this.setMaxNeuroticism(maxPersonalityTraits[4]);
+    }
+    
 	/**
 	 * Gets the topic.
 	 *
@@ -700,29 +816,29 @@ public class Statement
         this.text = text;
     }
 
-    /* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return    "++++++++++Statement++++++++++" 
-		        + "\nTopic:" + topic
-		        + "\n"
-				+ "\nminOpennessToExperience:" + minOpennessToExperience  
-				+ "\nminConscientiousness:" + minConscientiousness 
-				+ "\nminExtraversion:" + minExtraversion
-				+ "\nminAgreeableness:" + minAgreeableness
-				+ "\nminNeuroticism:" + minNeuroticism
-				+ "\n"
-				+ "\ndelJoy:" + delJoy 
-				+ "\ndelSadness:" + delSadness
-				+ "\ndelAnger:" + delAnger 
-				+ "\ndelFear:" + delFear
-				+ "\ndelDisgust:" + delDisgust 
-				+ "\ndelSurprise:" + delSurprise
-				+ "\ndelAnticipation:" + delAnticipation 
-				+ " \ndelTrust:" + delTrust
-				+ "\n+++++++++++++++++++++++++++++\n"; 
-				
-	}
+    @Override
+    public String toString() {
+        return "Statement [topic=" + topic + ", text=" + text + ", delJoy="
+                + delJoy + ", delSadness=" + delSadness + ", delAnger="
+                + delAnger + ", delFear=" + delFear + ", delDisgust="
+                + delDisgust + ", delSurprise=" + delSurprise
+                + ", delAnticipation=" + delAnticipation + ", delTrust="
+                + delTrust + ", delEmotions=" + Arrays.toString(delEmotions)
+                + ", minOpennessToExperience=" + minOpennessToExperience
+                + ", minConscientiousness=" + minConscientiousness
+                + ", minExtraversion=" + minExtraversion
+                + ", minAgreeableness=" + minAgreeableness
+                + ", minNeuroticism=" + minNeuroticism
+                + ", maxOpennessToExperience=" + maxOpennessToExperience
+                + ", maxConscientiousness=" + maxConscientiousness
+                + ", maxExtraversion=" + maxExtraversion
+                + ", maxAgreeableness=" + maxAgreeableness
+                + ", maxNeuroticism=" + maxNeuroticism
+                + ", minPersonalityTraits="
+                + Arrays.toString(minPersonalityTraits)
+                + ", maxPersonalityTraits="
+                + Arrays.toString(maxPersonalityTraits) + ", nextTopic="
+                + nextTopic + ", nextTopicTitle=" + nextTopicTitle
+                + ", whoSaidIt=" + whoSaidIt + "]";
+    }
 }
