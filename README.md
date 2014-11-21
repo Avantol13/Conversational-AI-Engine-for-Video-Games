@@ -9,5 +9,4 @@ That being said, it is in it's very early phases and my hopes are that YOU will 
 
 Thanks for checking this out and happy coding!
 
-Many thanks,
-Alex
+Many thanks!
