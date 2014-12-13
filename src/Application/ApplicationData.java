@@ -14,7 +14,9 @@ import com.thoughtworks.xstream.XStream;
 import Conversation.Conversation;
 import Conversation.Statement;
 import Conversation.Topic;
+import Emotions.Emotion;
 import People.Person;
+import PersonalityTraits.PersonalityTrait;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -149,71 +151,7 @@ public class ApplicationData
         
         return statements;
     }
-    
-    /**
-     * Creates the xml files for each of the given topics.
-     *
-     * @return true, if successful
-     */
-    public boolean exportTopics()
-    {
-        // Set up xml generation.
-        XStream xstream = new XStream();
-        xstream.ignoreUnknownElements();
-        
-        // Settings for Topic class
-        xstream.alias("topic", Topic.class);
-        xstream.useAttributeFor(Topic.class, "title");
-        xstream.omitField(Topic.class, "relatedTopics");
-        
-        // Settings for statement
-        xstream.alias("statement", Statement.class);
-        xstream.useAttributeFor(Statement.class, "text");
-        xstream.omitField(Statement.class, "topic");
-        xstream.omitField(Statement.class, "delEmotions");
-        xstream.omitField(Statement.class, "minPersonalityTraits");
-        xstream.omitField(Statement.class, "maxPersonalityTraits");
-        xstream.omitField(Statement.class, "nextTopic");
-        xstream.omitField(Statement.class, "whoSaidIt");
-        xstream.aliasField("nextTopic", Statement.class, "nextTopicTitle");
-        
-        // Loop through all the topics and create an XML file for each one.
-        for (int index = 0; index < topics.size(); index++)
-        {
-            //TODO: Finish XML test code
-            FileWriter filewriter = null;
-            try 
-            {
-                filewriter = new FileWriter(topics.get(index).getTitle() + ".xml");
-            } catch (IOException e) 
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return false;
-            }
-            xstream.toXML(topics.get(index), filewriter);
-        }
-        return true;
-    }
-    
-    /**
-     * Import people.
-     * 
-     * @return true, if successful
-     */
-    public boolean importPeople()
-    {
-        people = new LinkedList<Person>();
-        // TODO Import people from XML.
-        //create new persons and add them to the linked list of people
-        Person npc = new Person("Mr. NPC");
-        this.people.add(npc);
-        Person npc2 = new Person("Dr. NPC");
-        this.people.add(npc2);
-        
-        return true;
-    }
-    
+	
     /**
      * Imports topics by prompting for user input of directory and 
      * retrieving all XML files in directory as Topic objects.
@@ -251,6 +189,14 @@ public class ApplicationData
                 {
                    files.add(allFiles[index]);
                 }
+				else
+				{
+					// .txt files are okay, anything else is an error.
+					if (!(allFiles[index].getName().toLowerCase().endsWith(".txt")))
+					{
+						return false;
+					}
+				}
             }
             
             // TODO Try to use linked list for files.
@@ -284,25 +230,32 @@ public class ApplicationData
             xstream.omitField(Statement.class, "nextTopic");
             xstream.omitField(Statement.class, "whoSaidIt");
             xstream.aliasField("nextTopic", Statement.class, "nextTopicTitle");
-                        
-            // Get the topic from the current XML file. 
-            Topic newTopic = (Topic)xstream.fromXML(files.get(index));
             
-            // Add the topic to the list of topics.
-            topicsFound.add(newTopic);
-            
-            for (int count = 0; count < newTopic.getStatements().size(); count++)
+            try
             {
-                /** The current statement within the loop for all statements. */
-                Statement currentStatement = newTopic.getStatements().get(count);
-                Topic nextTopic = searchTopic(currentStatement.getNextTopicTitle(), topicsFound);
+                // Get the topic from the current XML file. 
+                Topic newTopic = (Topic)xstream.fromXML(files.get(index));
+          
+                // Add the topic to the list of topics.
+                topicsFound.add(newTopic);
                 
-                // If you find a topic that matches, set it as the next topic.
-                if (nextTopic != null)
+                for (int count = 0; count < newTopic.getStatements().size(); count++)
                 {
-                    currentStatement.setNextTopic(nextTopic);
+                    /** The current statement within the loop for all statements. */
+                    Statement currentStatement = newTopic.getStatements().get(count);
+                    Topic nextTopic = searchTopic(currentStatement.getNextTopicTitle(), topicsFound);
+                    
+                    // If you find a topic that matches, set it as the next topic.
+                    if (nextTopic != null)
+                    {
+                        currentStatement.setNextTopic(nextTopic);
+                    }
+                    // Else, we'll wait. The next topic may not have been created yet.
                 }
-                // Else, we'll wait. The next topic may not have been created yet.
+            }
+            catch (com.thoughtworks.xstream.mapper.CannotResolveClassException exc)
+            {
+                return false;
             }
         }
         
@@ -355,8 +308,201 @@ public class ApplicationData
         topics = topicsFound;
         return true;
     }
+	
+    /**
+     * Creates the xml files for each of the given topics.
+     *
+     * @return true, if successful
+     */
+    public boolean exportTopics()
+    {
+        // Set up xml generation.
+        XStream xstream = new XStream();
+        xstream.ignoreUnknownElements();
+        
+        // Settings for Topic class
+        xstream.alias("topic", Topic.class);
+        xstream.useAttributeFor(Topic.class, "title");
+        xstream.omitField(Topic.class, "relatedTopics");
+        
+        // Settings for statement
+        xstream.alias("statement", Statement.class);
+        xstream.useAttributeFor(Statement.class, "text");
+        xstream.omitField(Statement.class, "topic");
+        xstream.omitField(Statement.class, "delEmotions");
+        xstream.omitField(Statement.class, "minPersonalityTraits");
+        xstream.omitField(Statement.class, "maxPersonalityTraits");
+        xstream.omitField(Statement.class, "nextTopic");
+        xstream.omitField(Statement.class, "whoSaidIt");
+        xstream.aliasField("nextTopic", Statement.class, "nextTopicTitle");
+        
+        // Loop through all the topics and create an XML file for each one.
+        for (int index = 0; index < topics.size(); index++)
+        {
+            //TODO: Finish XML test code
+            FileWriter filewriter = null;
+            try 
+            {
+                filewriter = new FileWriter(topics.get(index).getTitle() + ".xml");
+            } 
+			catch (IOException e) 
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return false;
+            }
+            xstream.toXML(topics.get(index), filewriter);
+        }
+        return true;
+    }
     
+	/**
+     * Import people.
+     * 
+     * @return true, if successful
+     */
+    public boolean importPeople()
+    {
+        ////TODO remove
+        this.people = new LinkedList<Person>();
+        people.add(new Person("Mr. NPC"));
+        people.add(new Person("Dr. NPC"));
+        exportPeople();
+        ////
+        
+		LinkedList<Person> peopleFound = new LinkedList<Person>();
+        
+        /** The directory containing the XML files representing the people.*/
+        File pathToPeople;
+        
+        /** All the XML files in the directory (all the people)*/
+        LinkedList<File> files = new LinkedList<File>();
+        
+        /** The window that appears to choose the directory for the XML files for the people. */
+        JFileChooser chooser = new JFileChooser();
+        chooser.setApproveButtonText("Select Directory");
+        chooser.setDialogTitle("XML Directory Select");
+        // Set current directory as project path.
+        chooser.setCurrentDirectory(new File (Paths.get("").toAbsolutePath().toString()));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        Integer opt = chooser.showOpenDialog(chooser);
+        
+        try
+        {
+            // Get the directory and then loop through the files to get just the xml's.
+            pathToPeople = new File(chooser.getSelectedFile().getAbsolutePath());
+            File[] allFiles = pathToPeople.listFiles();
+            
+            for (int index = 0; index < allFiles.length; index++)
+            {
+                if (allFiles[index].getName().toLowerCase().endsWith(".xml"))
+                {
+                   files.add(allFiles[index]);
+                }
+				else
+				{
+					// .txt files are okay, anything else is an error.
+					if (!(allFiles[index].getName().toLowerCase().endsWith(".txt")))
+					{
+						return false;
+					}
+				}
+            }
+            
+            // TODO Try to use linked list for files.
+            // allFiles = listAllXML(pathToPeople, files);
+            
+        }// If nothing was selected/ window was closed or cancelled. 
+        catch (NullPointerException exc)
+        {
+            return false;
+        }
+        
+        // Now loop through the files we found and instantiate some people. Kewl beanz. 
+        for (int index = 0; index < files.size(); index++)
+        {
+            // Set up xml generation.
+            XStream xstream = new XStream();
+            xstream.ignoreUnknownElements();
+            
+            // Settings for Person class
+            xstream.alias("person", Person.class);
+            xstream.useAttributeFor(Person.class, "name");
+            xstream.omitField(Person.class, "totalEmotionModifiers");
+            xstream.omitField(Person.class, "numTraits");
+			
+            // Settings for PersonalityTrait class
+            xstream.alias("PersonalityTrait", PersonalityTrait.class);
+            xstream.omitField(PersonalityTrait.class, "name");
+            xstream.omitField(PersonalityTrait.class, "emotionModifiers");
+            
+			// Settings for Emotion class
+            xstream.alias("Emotion", Emotion.class);
+            xstream.omitField(Emotion.class, "name");
+			
+            try
+            {
+                // Get the Person from the current XML file. 
+                Person newPerson = (Person)xstream.fromXML(files.get(index));
+                newPerson.initialize();
+                // Add the Person to the list of people.
+                peopleFound.add(newPerson);
+            }
+            catch (com.thoughtworks.xstream.mapper.CannotResolveClassException exc)
+            {
+                return false;
+            }
+        }
+        
+		this.people = peopleFound;
+        return true;
+    }
     
+	/**
+     * Creates the xml files for each of the given people.
+     *
+     * @return true, if successful
+     */
+    public boolean exportPeople()
+    {
+        // Set up xml generation.
+        XStream xstream = new XStream();
+        xstream.ignoreUnknownElements();
+        
+        // Settings for Person class
+        xstream.alias("person", Person.class);
+        xstream.useAttributeFor(Person.class, "name");
+        xstream.omitField(Person.class, "totalEmotionModifiers");
+        xstream.omitField(Person.class, "numTraits");
+        
+        // Settings for PersonalityTrait class
+        xstream.alias("PersonalityTrait", PersonalityTrait.class);
+        xstream.omitField(PersonalityTrait.class, "name");
+        xstream.omitField(PersonalityTrait.class, "emotionModifiers");
+        
+        // Settings for Emotion class
+        xstream.alias("Emotion", Emotion.class);
+        xstream.omitField(Emotion.class, "name");
+        
+        // Loop through all the people and create an XML file for each one.
+        for (int index = 0; index < people.size(); index++)
+        {
+            FileWriter filewriter = null;
+            try 
+            {
+                filewriter = new FileWriter(people.get(index).getName() + ".xml");
+            } 
+			catch (IOException e) 
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return false;
+            }
+            xstream.toXML(people.get(index), filewriter);
+        }
+        return true;
+    }
+	
     // TODO Make this return a linked list
     /*
     public static File[] listAllXML(File pathToFiles, File[] allFiles) 

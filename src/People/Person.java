@@ -26,9 +26,6 @@ public class Person
 	/** Array of modifiers for all the emotions(combines all personality traits modifiers). */
 	protected double[] totalEmotionModifiers; 
 	
-	/** The number of personality traits. */
- 	protected int numTraits;
-	
 	/**
 	 * Constructor for Person, initializes all emotions and personality traits to default.
 	 *
@@ -47,7 +44,22 @@ public class Person
 				new Neuroticism(.5)
 		};
 		this.totalEmotionModifiers = new double[] {1, 1, 1, 1, 1, 1, 1, 1}; //initialize
-		this.numTraits = personalityTraits.length; 
+	}
+	
+	/**
+	 * Initializes the emotion modifiers and other variables. Necessary when importing people
+	 * from XML because xstream does not call the default constructor.
+	 * 
+	 */
+	public void initialize()
+	{
+        this.totalEmotionModifiers = new double[] {1, 1, 1, 1, 1, 1, 1, 1}; //initialize
+        this.personalityTraits = new PersonalityTrait[]{ 
+                new OpennessToExperience(personalityTraits[0].getIntensity()),
+                new Conscientiousness(personalityTraits[1].getIntensity()), 
+                new Extraversion(personalityTraits[2].getIntensity()), 
+                new Agreeableness(personalityTraits[3].getIntensity()),
+                new Neuroticism(personalityTraits[4].getIntensity())};
 	}
 	
 	/**
@@ -91,14 +103,14 @@ public class Person
 		    totalEmotionModifiers[index] = 0;
 		    
 			// Loop through all of the personality traits to add up their modifiers for emotion
-			for(int index1 = 0; index1 < personalityTraits.length; index1++)
+			for(int index1 = 0; index1 < 5; index1++)
 			{
 				// Add all the personality modifiers to get a single modifier
 				totalEmotionModifiers[index] += personalityTraits[index1].getEmotionModifiers()[index]; 
 			}
 			
 			// Average the multipliers together.
-			totalEmotionModifiers[index] = totalEmotionModifiers[index]/personalityTraits.length; 
+			totalEmotionModifiers[index] = totalEmotionModifiers[index]/5; 
 			// TODO Is there a better way to calculate the emotional modifiers? ^^^^^^
 		}
 	}
@@ -141,7 +153,7 @@ public class Person
 			requirementsMet = true; // assume innocent until proven guilty
 			
 			// check for the min and max requirements of all personality traits
-			for (int traits = 0; traits < numTraits; traits++) 
+			for (int traits = 0; traits < 5; traits++) 
 			{	
 				// check that EVERY personality trait meets the minimum
 				// requirement for the statement
@@ -230,24 +242,6 @@ public class Person
      */
     public void setTotalEmotionModifiers(double[] totalEmotionModifiers) {
         this.totalEmotionModifiers = totalEmotionModifiers;
-    }
-
-    /**
-     * Gets the num traits.
-     *
-     * @return the num traits
-     */
-    public int getNumTraits() {
-        return numTraits;
-    }
-
-    /**
-     * Sets the num traits.
-     *
-     * @param numTraits the new num traits
-     */
-    public void setNumTraits(int numTraits) {
-        this.numTraits = numTraits;
     }
 
     /**
