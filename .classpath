@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Neelix/Documents/GitHub/Conversational-AI-Engine-for-Interactions-in-Video-Games/eclipse/xstream-1.4.7.jar"/>
+	<classpathentry kind="lib" path="lib/XStream/xstream-1.4.7/lib/xstream-1.4.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
