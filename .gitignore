@@ -1,11 +1,11 @@
 # Ignore directories
 bin/
-.settings/
-.metadata/
+# .settings/
+# .metadata/
 
 # Java files
-*.classpath
-*.project
+# *.classpath
+# *.project
 
 # Windows image file caches
 Thumbs.db
