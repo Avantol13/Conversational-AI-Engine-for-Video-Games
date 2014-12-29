@@ -360,13 +360,6 @@ public class ApplicationData
      */
     public boolean importPeople()
     {
-        ////TODO remove
-        this.people = new LinkedList<Person>();
-        people.add(new Person("Mr. NPC"));
-        people.add(new Person("Dr. NPC"));
-        exportPeople();
-        ////
-        
 		LinkedList<Person> peopleFound = new LinkedList<Person>();
         
         /** The directory containing the XML files representing the people.*/
@@ -426,6 +419,8 @@ public class ApplicationData
             xstream.alias("person", Person.class);
             xstream.useAttributeFor(Person.class, "name");
             xstream.omitField(Person.class, "totalEmotionModifiers");
+            xstream.omitField(Person.class, "updateFrequencyMultiplier");
+            xstream.omitField(Person.class, "emotionDegradationValues");
             xstream.omitField(Person.class, "numTraits");
 			
             // Settings for PersonalityTrait class
@@ -470,6 +465,8 @@ public class ApplicationData
         xstream.alias("person", Person.class);
         xstream.useAttributeFor(Person.class, "name");
         xstream.omitField(Person.class, "totalEmotionModifiers");
+        xstream.omitField(Person.class, "updateFrequencyMultiplier");
+        xstream.omitField(Person.class, "emotionDegradationValues");
         xstream.omitField(Person.class, "numTraits");
         
         // Settings for PersonalityTrait class

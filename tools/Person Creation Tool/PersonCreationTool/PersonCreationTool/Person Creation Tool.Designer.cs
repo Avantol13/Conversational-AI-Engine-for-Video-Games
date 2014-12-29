@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace PersonCreationTool
 {
     partial class PersonCreationForm
     {
