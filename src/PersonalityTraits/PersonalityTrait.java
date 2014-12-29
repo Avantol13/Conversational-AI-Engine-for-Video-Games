@@ -1,7 +1,5 @@
 package PersonalityTraits;
 
-import java.util.Arrays;
-
 /**
  * The Class PersonalityTrait, containing variables and methods common to all personality traits.
  */

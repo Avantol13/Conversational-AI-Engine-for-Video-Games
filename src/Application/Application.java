@@ -402,9 +402,11 @@ public class Application
     private JTextField txtDisgust_1;
     
     /** The Statement select left. */
+    @SuppressWarnings("rawtypes")
     private JComboBox StatementSelectLeft;
     
     /** The Statement select right. */
+    @SuppressWarnings("rawtypes")
     private JComboBox StatementSelectRight;
     
     /** The vertical strut. */
@@ -496,6 +498,8 @@ public class Application
     private JTextField StatementRight_A;
     private JTextField StatementRight_N_Max;
     private JTextField StatementRight_N;
+    private JButton btnSayNothing_left;
+    private JButton btnSayNothing_right;
     
     /**
      * Launch the application.
@@ -549,7 +553,7 @@ public class Application
      */
     public Application() 
     {
-        decimalFormat = new DecimalFormat("#.##");
+        decimalFormat = new DecimalFormat("#.####");
         
         // TODO Don't use overrode constructor with no arguments... bad idea b/c null pointers
         applicationData = new ApplicationData();
@@ -580,7 +584,7 @@ public class Application
     /**
      * Updates the GUI depending on current variables (selections in boxes).
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void updateLeftGUI()
     {
         // Show all the information from the conversation.
@@ -606,6 +610,7 @@ public class Application
         {
             statementsString[count] = applicationData.getCurrentConversation().getCurrentTopic().getStatements().get(count).getText();
         }
+        
         StatementSelectLeft.setModel(new DefaultComboBoxModel(statementsString));
         // It's null to start will, so don't try to do stuff with it
         if (leftStatementObject != null)
@@ -675,7 +680,7 @@ public class Application
     /**
      * Updates the GUI depending on current variables (selections in boxes).
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void updateRightGUI()
     {
         // Show all the information from the conversation.
@@ -773,7 +778,7 @@ public class Application
      *
      * @param application the application
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes" })
     private void initializeGUI(final Application application) 
     {
         frmNpcConversationalAi = new JFrame();
@@ -788,6 +793,8 @@ public class Application
                     sayRight.setEnabled(false);
                     StatementSelectLeft.setEnabled(true);
                     StatementSelectRight.setEnabled(false);
+                    btnSayNothing_left.setEnabled(true);
+                    btnSayNothing_right.setEnabled(false);
                     
                     updateLeftGUI();
                     updateRightGUI();
@@ -1878,7 +1885,7 @@ public class Application
         gbc_txtDisgust_1.gridy = 1;
         panel_10.add(txtDisgust_1, gbc_txtDisgust_1);
         
-        startConvo = new JButton("Say");
+        startConvo = new JButton("Say Statement");
         startConvo.setEnabled(false);
         startConvo.addActionListener(new ActionListener() 
         {
@@ -1895,6 +1902,8 @@ public class Application
                     sayRight.setEnabled(true);
                     StatementSelectLeft.setEnabled(false);
                     StatementSelectRight.setEnabled(true);
+                    btnSayNothing_left.setEnabled(false);
+                    btnSayNothing_right.setEnabled(true);
                     
                     // The user did not change the selection.
                     if (leftStatement == null)
@@ -1907,7 +1916,8 @@ public class Application
                         if (leftStatement != null)
                         {
                             // Since we're on the left, this is the initiator saying something to the responder.
-                            applicationData.getCurrentConversation().say(applicationData.getCurrentConversation().getInitiator(), leftStatement, applicationData.getCurrentConversation().getResponder()); 
+                            applicationData.getCurrentConversation().say(applicationData.getCurrentConversation().getInitiator(), 
+                                    leftStatement, applicationData.getCurrentConversation().getResponder()); 
                             
                             updateRightGUI(); 
                         }
@@ -1919,7 +1929,8 @@ public class Application
                     else
                     {
                         // Since we're on the left, this is the initiator saying something to the responder.
-                        applicationData.getCurrentConversation().say(applicationData.getCurrentConversation().getInitiator(), leftStatement, applicationData.getCurrentConversation().getResponder()); 
+                        applicationData.getCurrentConversation().say(applicationData.getCurrentConversation().getInitiator(), 
+                                leftStatement, applicationData.getCurrentConversation().getResponder()); 
                         
                         updateRightGUI();
                     }
@@ -1933,11 +1944,55 @@ public class Application
             }
         });
         GridBagConstraints gbc_startConvo = new GridBagConstraints();
-        gbc_startConvo.gridwidth = 8;
+        gbc_startConvo.gridwidth = 4;
         gbc_startConvo.insets = new Insets(0, 0, 0, 5);
         gbc_startConvo.gridx = 0;
         gbc_startConvo.gridy = 2;
         panel_10.add(startConvo, gbc_startConvo);
+        
+        btnSayNothing_left = new JButton("Say Nothing");
+        btnSayNothing_left.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+             // Make sure the conversation has begun. Button should be disabled.
+                if (applicationData.getCurrentConversation() != null)
+                {
+                    // Update.
+                    updateLeftGUI();
+                    
+                    // Set everything up for next statement input.
+                    startConvo.setEnabled(false);
+                    sayRight.setEnabled(true);
+                    StatementSelectLeft.setEnabled(false);
+                    StatementSelectRight.setEnabled(true);
+                    btnSayNothing_left.setEnabled(false);
+                    btnSayNothing_right.setEnabled(true);
+                   
+                   // Since we're on the right, this is the initiator saying something to the responder.
+                   double[] zeroes = {0,0,0,0,0,0,0,0};
+                   
+                   // Update with zeroes (as if the person said nothing).
+                   applicationData.getCurrentConversation().getResponder().updateEmotions(zeroes); 
+                     
+                   updateRightGUI();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, 
+                    "Please link a conversation to the application to continue.", 
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+        
+        btnSayNothing_left.setEnabled(false);
+        GridBagConstraints gbc_btnSayNothing = new GridBagConstraints();
+        gbc_btnSayNothing.gridwidth = 4;
+        gbc_btnSayNothing.insets = new Insets(0, 0, 0, 5);
+        gbc_btnSayNothing.gridx = 4;
+        gbc_btnSayNothing.gridy = 2;
+        panel_10.add(btnSayNothing_left, gbc_btnSayNothing);
         
         JPanel Right = new JPanel();
         Right.setBackground(UIManager.getColor("menu"));
@@ -2807,14 +2862,57 @@ public class Application
         gbc_txtDisgust_3.gridy = 1;
         panel_1.add(txtDisgust_3, gbc_txtDisgust_3);
         
-        sayRight = new JButton("Say");
+        sayRight = new JButton("Say Statement");
         GridBagConstraints gbc_sayRight = new GridBagConstraints();
-        gbc_sayRight.gridwidth = 8;
+        gbc_sayRight.gridwidth = 4;
         gbc_sayRight.insets = new Insets(0, 0, 0, 5);
         gbc_sayRight.gridx = 0;
         gbc_sayRight.gridy = 2;
         panel_1.add(sayRight, gbc_sayRight);
         sayRight.setEnabled(false);
+        
+        btnSayNothing_right = new JButton("Say Nothing");
+        btnSayNothing_right.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+             // Make sure the conversation has begun. Button should be disabled.
+                if (applicationData.getCurrentConversation() != null)
+                {
+                    updateRightGUI();
+                    
+                    // Set everything up for next statement input.
+                    startConvo.setEnabled(true);
+                    sayRight.setEnabled(false);
+                    StatementSelectLeft.setEnabled(true);
+                    StatementSelectRight.setEnabled(false);
+                    btnSayNothing_left.setEnabled(true);
+                    btnSayNothing_right.setEnabled(false);
+                   
+                   // Since we're on the right, this is the responder saying something to the initiator.
+                   double[] zeroes = {0,0,0,0,0,0,0,0};
+                   
+                   // Update with zeroes (as if the person said nothing).
+                   applicationData.getCurrentConversation().getInitiator().updateEmotions(zeroes); 
+                     
+                   updateLeftGUI();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, 
+                    "Please link a conversation to the application to continue.", 
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+        btnSayNothing_right.setEnabled(false);
+        GridBagConstraints gbc_btnSayNothing_1 = new GridBagConstraints();
+        gbc_btnSayNothing_1.gridwidth = 4;
+        gbc_btnSayNothing_1.insets = new Insets(0, 0, 0, 5);
+        gbc_btnSayNothing_1.gridx = 4;
+        gbc_btnSayNothing_1.gridy = 2;
+        panel_1.add(btnSayNothing_right, gbc_btnSayNothing_1);
+        
         sayRight.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0) 
@@ -2829,6 +2927,8 @@ public class Application
 			        sayRight.setEnabled(false);
 			        StatementSelectLeft.setEnabled(true);
 			        StatementSelectRight.setEnabled(false);
+                    btnSayNothing_left.setEnabled(true);
+                    btnSayNothing_right.setEnabled(false);
 			        
 			        // The user did not change the selection.
                     if (rightStatement == null)

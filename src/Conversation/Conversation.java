@@ -56,10 +56,7 @@ public class Conversation
 		// Add the statement to the list of previous statements.
 		prevStatements.addLast(statement);
 		prevStatements.getLast().addLastPersonWhoSaidIt(talker);
-		
-		// Get the statements that can be said about the current topic.
-		LinkedList<Statement> statements = currentTopic.getStatements();
-		
+				
 		// TODO Remove comments below. This will automate the statement selection. No debugging.
 		// Get the response based on available statements. NOT used here because the statements
 		// available are provided in the combo box and the user selects one. 

@@ -1,5 +1,4 @@
 package PersonalityTraits;
-import Emotions.*;
 
 // TODO: Auto-generated Javadoc
 /**

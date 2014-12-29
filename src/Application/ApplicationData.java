@@ -6,9 +6,6 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import com.thoughtworks.xstream.XStream;
 
 import Conversation.Conversation;
@@ -173,7 +170,7 @@ public class ApplicationData
         chooser.setApproveButtonText("Select Directory");
         chooser.setDialogTitle("XML Directory Select");
         // Set current directory as project path.
-        chooser.setCurrentDirectory(new File (Paths.get("").toAbsolutePath().toString()));
+        chooser.setCurrentDirectory(new File (Paths.get("").toAbsolutePath().toString() + "\\topics"));
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         Integer opt = chooser.showOpenDialog(chooser);
         
@@ -383,7 +380,7 @@ public class ApplicationData
         chooser.setApproveButtonText("Select Directory");
         chooser.setDialogTitle("XML Directory Select");
         // Set current directory as project path.
-        chooser.setCurrentDirectory(new File (Paths.get("").toAbsolutePath().toString()));
+        chooser.setCurrentDirectory(new File (Paths.get("").toAbsolutePath().toString() + "\\people"));
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         Integer opt = chooser.showOpenDialog(chooser);
         

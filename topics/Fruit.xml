@@ -23,7 +23,7 @@
     </statement>
     <statement text="Orange you glad to see me?">
       <delJoy>0.1</delJoy>
-      <delSadness>0.1</delSadness>
+      <delSadness>0.2</delSadness>
       <delAnger>0.1</delAnger>
       <delFear>0.1</delFear>
       <delDisgust>0.1</delDisgust>
@@ -43,7 +43,7 @@
       <nextTopic>Dumb Fruit</nextTopic>
     </statement>
     <statement text="Limes and lemons and stuff.">
-      <delJoy>0.1</delJoy>
+      <delJoy>0</delJoy>
       <delSadness>0.1</delSadness>
       <delAnger>0.1</delAnger>
       <delFear>0.1</delFear>
@@ -64,14 +64,14 @@
       <nextTopic>Dumb Fruit</nextTopic>
     </statement>
     <statement text="Raspberries is spelled funny.">
-      <delJoy>0.1</delJoy>
-      <delSadness>0.1</delSadness>
+      <delJoy>0.0</delJoy>
+      <delSadness>0.0</delSadness>
       <delAnger>0.1</delAnger>
-      <delFear>0.1</delFear>
-      <delDisgust>0.1</delDisgust>
-      <delSurprise>0.1</delSurprise>
-      <delAnticipation>0.1</delAnticipation>
-      <delTrust>0.1</delTrust>
+      <delFear>0.0</delFear>
+      <delDisgust>0.0</delDisgust>
+      <delSurprise>0.0</delSurprise>
+      <delAnticipation>0.0</delAnticipation>
+      <delTrust>0.0</delTrust>
       <minOpennessToExperience>0.5</minOpennessToExperience>
       <minConscientiousness>0.4</minConscientiousness>
       <minExtraversion>0.6</minExtraversion>
