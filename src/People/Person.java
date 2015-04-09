@@ -90,6 +90,9 @@ public class Person
 		// Calculate the modifiers for increasing emotions.
 		calculateEmotionModifiers();
 		
+        // Adjust the deltas based on inverse relationships between requested changes.
+		deltaEmotions = adjustDeltas(deltaEmotions);
+        
 		//Check for correct size of array
 		if (deltaEmotions.length != 8)
 		{
@@ -105,9 +108,6 @@ public class Person
 			// Get final values for the delta for each emotion (based on modifiers)
 			finalDeltaEmotions[index] = deltaEmotions[index] * totalEmotionModifiers[index];
 		}
-		
-		// Adjust the deltas based on inverse relationships between requested changes.
-		finalDeltaEmotions = adjustDeltas(finalDeltaEmotions);
 		
 		// Calculate the values that will be subtracted from the emotions for degrading
 		// over time. Final deltas are passed in to be used for calculations.
@@ -263,7 +263,7 @@ public class Person
 	/**
 	 * Calculates the values for each emotion that represent the value to subtracted
 	 * from the intensity if no specified change is requested and the person is being
-	 * updated. This effectively allows for emotions to degrade over time based on\
+	 * updated. This effectively allows for emotions to degrade over time based on
 	 * various factors like other emotions and personality.
 	 */
 	protected void calculateEmotionDegradationValues(double[] deltaEmotions)
