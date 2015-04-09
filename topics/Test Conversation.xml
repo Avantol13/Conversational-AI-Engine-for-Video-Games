@@ -42,5 +42,47 @@
       <maxNeuroticism>1.0</maxNeuroticism>
       <nextTopic>Test Conversation</nextTopic>
     </statement>
+	<statement text="I kinda love you.">
+      <delJoy>0.5</delJoy>
+      <delSadness>0.0</delSadness>
+      <delAnger>0.0</delAnger>
+      <delFear>0.0</delFear>
+      <delDisgust>0.0</delDisgust>
+      <delSurprise>0.5</delSurprise>
+      <delAnticipation>0.0</delAnticipation>
+      <delTrust>0.5</delTrust>
+      <minOpennessToExperience>0.0</minOpennessToExperience>
+      <minConscientiousness>0.0</minConscientiousness>
+      <minExtraversion>0.0</minExtraversion>
+      <minAgreeableness>0.0</minAgreeableness>
+      <minNeuroticism>0.0</minNeuroticism>
+	  <maxOpennessToExperience>1.0</maxOpennessToExperience>
+      <maxConscientiousness>1.0</maxConscientiousness>
+      <maxExtraversion>1.0</maxExtraversion>
+      <maxAgreeableness>1.0</maxAgreeableness>
+      <maxNeuroticism>1.0</maxNeuroticism>
+      <nextTopic>Test Conversation</nextTopic>
+    </statement>
+    <statement text="I kinda hate you.">
+      <delJoy>0.0</delJoy>
+      <delSadness>0.5</delSadness>
+      <delAnger>0.5</delAnger>
+      <delFear>0.5</delFear>
+      <delDisgust>0.5</delDisgust>
+      <delSurprise>0.5</delSurprise>
+      <delAnticipation>0.0</delAnticipation>
+      <delTrust>0.0</delTrust>
+      <minOpennessToExperience>0.0</minOpennessToExperience>
+      <minConscientiousness>0.0</minConscientiousness>
+      <minExtraversion>0.0</minExtraversion>
+      <minAgreeableness>0.0</minAgreeableness>
+      <minNeuroticism>0.0</minNeuroticism>
+	  <maxOpennessToExperience>1.0</maxOpennessToExperience>
+      <maxConscientiousness>1.0</maxConscientiousness>
+      <maxExtraversion>1.0</maxExtraversion>
+      <maxAgreeableness>1.0</maxAgreeableness>
+      <maxNeuroticism>1.0</maxNeuroticism>
+      <nextTopic>Test Conversation</nextTopic>
+    </statement>
   </statements>
 </topic>
